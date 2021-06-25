@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<body>
+<h1> Hello in web chat app ! </h1> </br>
+<form action="#" th:action="@{/enterChat}" th:object="${chatForm}" method="post">
+    <p>Username: <input type="text" style="width: 300px" th:field="*{username}" /> </p>
+    <p>Chat name: <input id="chatname" style="width: 300px" type="text" th:field="*{chatName}" /></p> <button type="button" onclick="generateUnique()">Generate name</button>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+
+<script>
+    function generateUnique() {
+        document.getElementById("chatname").value = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+</script>
+</form>
+</body>
+</html>

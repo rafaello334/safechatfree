@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div th:object="${chat}">
+    <h1>Chat <span th:text="*{chatName}"></span></h1>
+
+    <table>
+        <tr th:each="message : *{messages}">
+            <td th:text="${#dates.format(new java.util.Date(message.key), 'yyyy-MM-dd HH:mm') + '  -  ' + message.value.username + ': ' + message.value.message}"></td>
+        </tr>
+    </table>
+
+
+
+    <textarea style="width: 400px; height: 200px; margin-top: 100px" th:name="message" form="messageForm"></textarea>
+    <form th:action="@{/sendMessage}" id="messageForm">
+        <input type="submit" name="Send"/>
+    </form>
+
+
+    <script>
+        (function(seconds) {
+            let refresh,
+                intvrefresh = function () {
+                    clearInterval(refresh);
+                    refresh = setTimeout(function () {
+                        location.href = location.href;
+                    }, seconds * 1000);
+                };
+
+            $(document).on('keypress click', function() { intvrefresh() });
+            intvrefresh();
+
+        }(15));
+    </script>
+</div>
+</body>
+</html>
